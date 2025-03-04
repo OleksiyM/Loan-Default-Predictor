@@ -1,6 +1,16 @@
+- [Loan Default Prediction - Data Science Challenge](#loan-default-prediction---data-science-challenge)
+  - [Dataset](#dataset)
+  - [Project Structure](#project-structure)
+    - [Files Structure](#files-structure)
+  - [Model Development and Iteration](#model-development-and-iteration)
+  - [Final Model](#final-model)
+  - [Key Techniques Used](#key-techniques-used)
+  - [Conclusion](#conclusion)
+  - [License](#license)
+
 # Loan Default Prediction - Data Science Challenge
 
-This repository contains my solution to a machine learning challenge focused on predicting loan defaults. The goal is to build a model that accurately estimates the probability of a borrower defaulting on their loan, given a dataset of historical loan information.  The project explores various techniques, including feature engineering, hyperparameter tuning, model calibration, and ensemble methods, to achieve a high ROC AUC score.
+This repository contains my solution to the [Data Science Coding Challenge: Loan Default Prediction](https://www.coursera.org/projects/data-science-coding-challenge-loan-default-prediction) from Coursera. The goal is to build a model that accurately estimates the probability of a borrower defaulting on their loan, given a dataset of historical loan information. The project explores various techniques, including feature engineering, hyperparameter tuning, model calibration, and ensemble methods, to achieve a high ROC AUC score.
 
 ## Dataset
 
@@ -145,7 +155,10 @@ The project followed an iterative approach, starting with simple models and grad
        # ... (One-hot encoding) ...
        # Feature Engineering
        df['Income_x_CreditScore'] = df['Income'] * df['CreditScore']
-       # ... (Other engineered features) ...
+       df['LoanAmount_x_Income'] = df['LoanAmount'] / (df['Income'] + 1e-9)
+       df['LoanAmount_x_CreditScore'] = df['LoanAmount'] * df['CreditScore']
+       df['MonthsEmployed_x_Age'] = df['MonthsEmployed'] / (df['Age'] + 1e-9)
+       df['DTIRatio_squared'] = df['DTIRatio'] ** 2
        return df
 
     # ... (train_test_split, scaling) ...
